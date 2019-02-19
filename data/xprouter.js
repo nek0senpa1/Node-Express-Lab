@@ -1,0 +1,56 @@
+const express = require('express');
+
+const deebee = require('./db');
+
+const routerWidget = express.Router();
+
+
+routerWidget.get('/api/posts', async (reck, rez) => {
+    try{
+        const something = await deebee.find(reck.query);
+        rez.status(200).json(something);
+    }
+    catch (errz) {
+        console.log(errz);
+        rez.status(500).json({
+            disIssaMessage: 'All Your Base Belong To Me (dis bad)',
+        })
+    }
+});
+
+routerWidget.post('/api/posts', async (wreck, ressurection) => {
+    try {
+        const item = await deebee.insert(wreck.body);
+        ressurection.status(201).json(item);
+    }
+    catch {
+        ressurection.status(500).json({
+            disIssaMessage: 'All Your Base Belong To Me (dis bad)',
+        })
+    }
+});
+
+routerWidget.get('/api/posts/:id', async (reck, rez) => {
+    try{
+        const something = await deebee.findById(reck.params.id);
+
+        if(something) {
+            rez.status(200).json(something);
+        }
+        else {
+            rez.status(400).json({
+                DisAlsoAMessage: 'The ability to speak does not make you intelligent'
+            })
+        }
+    }
+    catch (errz) {
+        console.log(errz);
+        rez.status(500).json({
+            disIssaMessage: 'All Your Base Belong To Me (dis bad)',
+        })
+    }
+});
+
+
+
+module.exports = routerWidget;
