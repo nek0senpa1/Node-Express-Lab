@@ -51,6 +51,48 @@ routerWidget.get('/api/posts/:id', async (reck, rez) => {
     }
 });
 
+routerWidget.delete('/api/posts/:id', async (wrecks, rocks) =>{
+    try {
+        let thing = await deebee.remove(wrecks.params.id);
+        if (thing) {
+            console.log(thing);
+            rocks.status(200).json({ message: 'It Ded.  D E D ded.' });
+        } else {
+            console.log(thing);
+            rocks.status(404).json({ message: 'NOT found !!!!' });
+        }
+        
+    }
+    catch (errz) {
+        console.log(errz);
+        rocks.status(500).json({
+            disIssaMessage: 'All Your Base Belong To Me (dis bad)',
+        })
+    }
+});
+
+routerWidget.put('/api/posts/:id', async (rec, rez) => {
+    try{
+        let whoDoWhat = await deebee.update(rec.params.id, rec.body);
+        if(whoDoWhat) {
+            rez.status(200)
+            //.json(whoDoWhat)
+            .json({mass: 'Up Dooted!'} );
+        }
+        else {
+            rez.status(404).json({
+                superSasasasassasasasage: 'hey... that did not work...'
+            })
+        }
+    }
+    catch (errz) {
+        console.log(errz);
+        rocks.status(500).json({
+            disIssaMessage: 'All Your Base Belong To Me (dis bad)',
+        })
+    }
+});
+
 
 
 module.exports = routerWidget;
